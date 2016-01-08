@@ -10,6 +10,7 @@
     value : {},
     data : {},
     net : {},
+    util : {},
     draw : {},
     func : {},
     templates : {}
@@ -31,7 +32,29 @@ commonUtils.common.init = function() {
 
 };
 
+commonUtils.util.progress = function(params) {
+
+    if(params.show == undefined) {
+        return;
+    }
+
+    if(params.show) {
+
+        $('.ti-progress').removeClass('hide');
+
+    } else {
+
+        $('.ti-progress').addClass('hide');
+
+    }
+
+};
+
 commonUtils.func.getList = function() {
+
+    commonUtils.util.progress({
+        show : true
+    });
 
     var apikey = $('#ti-apikey').val();
 
@@ -49,6 +72,10 @@ commonUtils.func.getList = function() {
             url : '/api/{token}'.replace('{token}', apikey),
             dataType : 'json',
             success : function(res) {
+
+                commonUtils.util.progress({
+                    show : false
+                });
 
                 if(res.success) {
 
@@ -69,6 +96,10 @@ commonUtils.func.getList = function() {
 
 
                 } else {
+
+                    commonUtils.util.progress({
+                        show : false
+                    });
 
                     alert(res.error);
 

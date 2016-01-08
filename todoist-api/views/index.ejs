@@ -10,8 +10,22 @@
     <script src="/vendor/js/bootstrap.min.js"></script>
     <script src="/javascripts/cookie.js"></script>
     <script src="/javascripts/common.js"></script>
+
+
   </head>
   <body>
+
+  <div class="ti-progress hide">
+    <div id="main">
+    </div>
+    <div class='ball-one'>
+    </div>
+    <div class='ball-two'>
+    </div>
+    <div class='ball-three'>
+    </div>
+  </div>
+
 
   <nav class="navbar navbar-inverse navbar-fixed-top bg-primary">
     <div class="container">
@@ -47,24 +61,30 @@
 
     </div>
 
-    <div class="form-horizontal">
+    <div class="row">
 
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">API KEY</label>
-        <div class="col-sm-9">
-          <input id="ti-apikey" type="text" class="form-control" placeholder="APIKEY를 넣어주세요">
+      <div class="form-horizontal col-sm-12">
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">API KEY</label>
+          <div class="col-sm-8">
+            <input id="ti-apikey" type="text" class="form-control" placeholder="APIKEY를 넣어주세요">
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-primary" style="width:100%;" onclick="commonUtils.func.getList();">가져오기</button>
+          </div>
         </div>
-        <div class="col-sm-1">
-          <button class="btn btn-primary" style="width:100%;" onclick="commonUtils.func.getList();">가져오기</button>
-        </div>
+
       </div>
 
+      <div id="ti-resut">
+
+
+      </div>
+
+
     </div>
 
-    <div id="ti-resut">
-
-
-    </div>
 
   </div><!-- /.container -->
   </body>
