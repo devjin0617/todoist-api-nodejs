@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="/vendor/css/lumen/bootstrap.min.css" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
 
+    <script src="/vendor/js/jquery-1.11.3.min.js"></script>
     <script src="/vendor/js/bootstrap.min.js"></script>
+    <script src="/javascripts/common.js"></script>
   </head>
   <body>
 
@@ -49,17 +51,18 @@
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">API KEY</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="APIKEY를 넣어주세요">
+          <input id="ti-apikey" type="text" class="form-control" placeholder="APIKEY를 넣어주세요">
         </div>
         <div class="col-sm-1">
-          <button class="btn btn-primary" style="width:100%;">가져오기</button>
+          <button class="btn btn-primary" style="width:100%;" onclick="commonUtils.func.getList();">가져오기</button>
         </div>
       </div>
 
     </div>
 
-    <div>
-      test
+    <div id="ti-resut">
+
+
     </div>
 
   </div><!-- /.container -->
