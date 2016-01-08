@@ -15,9 +15,27 @@
     templates : {}
 };
 
+$(function() {
+    $(document).ready(function() {
+        commonUtils.common.init();
+    });
+});
+
+commonUtils.common.init = function() {
+
+    var token = getCookie('token');
+
+    if(token.length > 0) {
+        $('#ti-apikey').val(token);
+    }
+
+};
+
 commonUtils.func.getList = function() {
 
     var apikey = $('#ti-apikey').val();
+
+    setCookie('token', apikey, 7);
 
     if(apikey.length == 0) {
         alert('Todoist에 있는 APIKEY를 입력하세요.');
