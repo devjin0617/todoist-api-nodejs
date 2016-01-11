@@ -69,18 +69,58 @@
 
         <div class="form-group">
           <label for="inputEmail3" class="col-sm-2 control-label">API KEY</label>
-          <div class="col-sm-8">
+          <div class="col-sm-10">
             <input id="ti-apikey" type="text" class="form-control" placeholder="APIKEY를 넣어주세요">
           </div>
-          <div class="col-sm-2">
-            <button class="btn btn-primary" style="width:100%;" onclick="commonUtils.func.getList();">가져오기</button>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-3">
+            <button class="btn btn-primary" style="width:100%;" onclick="commonUtils.modal.open('projects');">프로젝트목록</button>
           </div>
+          <div class="col-sm-3">
+            <button class="btn btn-primary" style="width:100%;" onclick="commonUtils.modal.open('labels');">라벨목록</button>
+          </div>
+          <div class="col-sm-3">
+            <button class="btn btn-primary" style="width:100%;" onclick="commonUtils.modal.open('string');">제외할문자열</button>
+          </div>
+          <div class="col-sm-3">
+            <button class="btn btn-danger" style="width:100%;" onclick="commonUtils.func.getList();">업무보고출력</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-3">
+            <ul id="ti-project-list" class="list-group">
+              <li class="list-group-item">{NAME}</li>
+            </ul>
+          </div>
+
+          <div class="col-sm-3">
+            <ul id="ti-label-list" class="list-group">
+              <li class="list-group-item">{NAME}</li>
+            </ul>
+          </div>
+
+          <div class="col-sm-3">
+            <ul id="ti-string-list" class="list-group">
+              <li class="list-group-item">{NAME}</li>
+            </ul>
+          </div>
+
+          <div class="col-sm-3">
+          </div>
+
         </div>
 
       </div>
 
       <div id="ti-resut">
 
+
+      </div>
+
+      <div id="ti-modal-warp">
 
       </div>
 

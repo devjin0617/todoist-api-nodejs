@@ -13,6 +13,7 @@
     util : {},
     draw : {},
     func : {},
+    modal : {},
     templates : {}
 };
 
@@ -22,6 +23,8 @@ $(function() {
     });
 });
 
+commonUtils.templates.modal = undefined;
+
 commonUtils.common.init = function() {
 
     var token = getCookie('token');
@@ -29,6 +32,66 @@ commonUtils.common.init = function() {
     if(token.length > 0) {
         $('#ti-apikey').val(token);
     }
+
+};
+
+commonUtils.net.getList = function(data) {
+
+    var apiKey = $('#ti-apikey').val();
+
+    setCookie('token', apiKey, 7);
+
+    if(apiKey.length == 0) {
+        alert('Todoist에 있는 APIKEY를 입력하세요.');
+        return;
+    }
+
+    $.ajax({
+        type : 'get',
+        url : '/api/{token}/{key}'.replace('{token}', apiKey).replace('{key}', data.key),
+        dataType : 'json',
+        success : function(res) {
+
+            if(res.success) {
+
+                if(data.success != undefined) {
+                    data.success(res);
+                } else {
+                    console.log(res);
+                }
+
+            } else {
+
+                commonUtils.util.progress({
+                    show : false
+                });
+
+
+                if(data.error != undefined) {
+                    data.error(res);
+                } else {
+                    alert('데이터를 받아오지 못했습니다.');
+                    console.log(res);
+                }
+
+            }
+
+        },
+        error : function(err) {
+
+            commonUtils.util.progress({
+                show : false
+            });
+
+
+            if(data.error != undefined) {
+                data.error(err);
+            } else {
+                console.log(err);
+                alert('네트워크오류입니다.');
+            }
+        }
+    });
 
 };
 
@@ -50,66 +113,93 @@ commonUtils.util.progress = function(params) {
 
 };
 
-commonUtils.func.getList = function() {
+commonUtils.modal.open = function(key) {
 
     commonUtils.util.progress({
         show : true
     });
 
-    var apikey = $('#ti-apikey').val();
+    var doModal = function() {
 
-    setCookie('token', apikey, 7);
+        commonUtils.util.progress({
+            show : true
+        });
 
-    if(apikey.length == 0) {
-        alert('Todoist에 있는 APIKEY를 입력하세요.');
-        return;
-    }
-
-    $.get('/form/form.html', function(form) {
-
-        $.ajax({
-            type : 'get',
-            url : '/api/{token}'.replace('{token}', apikey),
-            dataType : 'json',
+        commonUtils.net.getList({
+            key : key,
             success : function(res) {
 
                 commonUtils.util.progress({
                     show : false
                 });
 
-                if(res.success) {
+                var replaceForm = commonUtils.templates.modal;
 
-                    console.log(res);
+                replaceForm = replaceForm.replace('{title}', 'hello');
+                replaceForm = replaceForm.replace('{content}', 'world');
 
-                    var content = [];
-                    for(var i in res.data.list) {
-                        var item = res.data.list[i];
+                $('#ti-modal-warp').html(replaceForm);
 
-                        content.push(item.content);
+                $('#ti-modal').modal();
 
-                    }
+            }
+        });
 
-                    var resultForm = form.replace('{content}', content.join('<br>'));
-                    resultForm = resultForm.replace('{date}', res.data.date).replace('{name}', res.data.name);
-
-                    $('#ti-resut').html(resultForm);
+    };
 
 
-                } else {
+    if(commonUtils.templates.modal == undefined) {
 
-                    commonUtils.util.progress({
-                        show : false
-                    });
+        $.get('/form/modal.html', function(form) {
 
-                    alert(res.error);
+            commonUtils.util.progress({
+                show : false
+            });
+
+            commonUtils.templates.modal = form;
+
+            doModal();
+        });
+
+    } else {
+        doModal();
+    }
+
+};
+
+
+commonUtils.func.getList = function() {
+
+    commonUtils.util.progress({
+        show : true
+    });
+
+    $.get('/form/form.html', function(form) {
+
+        commonUtils.net.getList({
+            key : 'result',
+            success : function(res) {
+
+                commonUtils.util.progress({
+                    show : false
+                });
+
+                var content = [];
+                for(var i in res.data.list) {
+                    var item = res.data.list[i];
+
+                    content.push(item.content);
 
                 }
 
-            },
-            error : function(err) {
-                alert('네트워크오류입니다.');
+                var resultForm = form.replace('{content}', content.join('<br>'));
+                resultForm = resultForm.replace('{date}', res.data.date).replace('{name}', res.data.name);
+
+                $('#ti-resut').html(resultForm);
+
             }
         });
+
 
     });
 

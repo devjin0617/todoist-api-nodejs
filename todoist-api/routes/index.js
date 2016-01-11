@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/api/:token?', function(req, res, next) {
+router.get('/api/:token/:key', function(req, res, next) {
 
   if(!req.params.token) {
     return res.send({
@@ -24,17 +24,16 @@ router.get('/api/:token?', function(req, res, next) {
     api : '/API/v6/sync'
   };
 
+  var requestList = ['items', 'user'];
+
+  if(req.params.key != 'result') {
+    requestList.push(req.params.key);
+  }
+
   var tokenData = {
     token : req.params.token,
     seq_no : 0,
-    resource_types : JSON.stringify([
-      //'all',
-      //'labels',
-      //'projects',
-      'items',
-      'user'
-      //'day_orders'
-    ])
+    resource_types : JSON.stringify(requestList)
   };
 
   request({
@@ -55,6 +54,13 @@ router.get('/api/:token?', function(req, res, next) {
     }
 
     var rootData = JSON.parse(body);
+
+    if(req.params.key != 'result') {
+      return res.send({
+        success : true,
+        data : rootData[req.params.key]
+      });
+    }
 
     var projectList = ['159854596', '159854554', '159854580'];
     projectList = projectList.join(',');
