@@ -24,10 +24,12 @@ router.get('/api/:token/:key', function(req, res, next) {
     api : '/API/v6/sync'
   };
 
-  var requestList = ['items', 'user'];
+  var requestList = [];
 
   if(req.params.key != 'result') {
     requestList.push(req.params.key);
+  } else {
+    requestList = ['items', 'user'];
   }
 
   var tokenData = {
