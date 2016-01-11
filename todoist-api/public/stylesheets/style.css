@@ -1,0 +1,143 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#main {
+  height:40px;
+  width:40px;
+  background:indianred;
+  border-radius:100%;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:100;
+}
+
+.ti-progress div {
+  background:#fff;
+  height:14px;
+  width:14px;
+  border-radius:100%;
+  position:absolute;
+  margin:auto;
+}
+
+.ball-one {
+  top:0;
+  left:0;
+  right:65px;
+  bottom:65px;
+  animation: anim 2s infinite ease-in;
+}
+
+@keyframes anim {
+  0%{
+    background:skyblue;
+    right:65px;
+    bottom:65px;
+    z-index:150;
+  }
+  33%{
+    right:-65px;
+    bottom:-65px;
+  }
+  66%{
+    width:10px;
+    height:10px;
+  }
+  99%{
+    right:65px;
+    bottom:65px;
+    height:14px;
+    width:14px;
+    z-index:0;
+  }
+  100%{
+    background:skyblue;
+  }
+}
+
+.ball-two {
+  top:0;
+  right:0;
+  left:65px;
+  bottom:65px;
+  animation: anim-two 2s infinite ease-in;
+  animation-delay: .4s;
+}
+
+@keyframes anim-two {
+  0%{
+    background:skyblue;
+    left:65px;
+    bottom:65px;
+    z-index:150;
+  }
+  33%{
+    left:-65px;
+    bottom:-65px;
+  }
+  66%{
+    width:10px;
+    height:10px;
+  }
+  99%{
+    left:65px;
+    bottom:65px;
+    height:14px;
+    width:14px;
+    z-index:0;
+  }
+  100%{
+    background:skyblue;
+  }
+}
+
+.ball-three {
+  top:-65px;
+  right:0;
+  left:0;
+  bottom:0;
+  animation: anim-three 2s infinite ease-in;
+  animation-delay: .8s;
+}
+
+@keyframes anim-three {
+  0%{
+    background:skyblue;
+    top:-65px;
+    z-index:150;
+  }
+  33%{
+    top:65px;
+  }
+  66%{
+    width:10px;
+    height:10px;
+  }
+  99%{
+    top:-65px;
+    height:14px;
+    width:14px;
+    z-index:0;
+  }
+  100%{
+    background:skyblue;
+  }
+}
+
+.ti-progress {
+  width:100%;
+  height:100%;
+  position : fixed;
+  z-index:9999;
+  top:0;
+  left:0;
+  background-color: rgba(10,10,10,0.5);
+}
