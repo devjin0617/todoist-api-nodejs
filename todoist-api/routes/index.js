@@ -56,9 +56,20 @@ router.get('/api/:token/:key', function(req, res, next) {
     var rootData = JSON.parse(body);
 
     if(req.params.key != 'result') {
+
+      var key = 'Users';
+      switch (req.params.key) {
+        case 'projects' :
+          key = 'Projects';
+              break;
+        case 'labels' :
+          key = 'Labels';
+              break;
+      }
+
       return res.send({
         success : true,
-        data : rootData[req.params.key]
+        data : rootData[key]
       });
     }
 

@@ -141,3 +141,11 @@ a {
   left:0;
   background-color: rgba(10,10,10,0.5);
 }
+
+.list-row:hover {
+  cursor: pointer;
+}
+.list-row.active {
+  background-color: #158cba;
+  color: white;
+}

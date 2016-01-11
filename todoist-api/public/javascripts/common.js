@@ -135,10 +135,43 @@ commonUtils.modal.open = function(key) {
 
                 var replaceForm = commonUtils.templates.modal;
 
-                replaceForm = replaceForm.replace('{title}', 'hello');
-                replaceForm = replaceForm.replace('{content}', 'world');
+                var li = '<li class="list-group-item list-row">{row}</li>';
+                var content = '';
+                switch (key) {
+                    case 'projects' :
+                        replaceForm = replaceForm.replace('{title}', '프로젝트목록');
+                        for (var i in res.data) {
+                            var item = res.data[i];
+                            content += li.replace('{row}', item.name);
+                        }
+
+                        break;
+                    case 'labels' :
+                        replaceForm = replaceForm.replace('{title}', '라벨목록');
+                        for (var i in res.data) {
+                            var item = res.data[i];
+                            content += li.replace('{row}', item.name);
+                        }
+
+                        break;
+                    default :
+                        break;
+
+                }
+
+                replaceForm = replaceForm.replace('{content}', content);
 
                 $('#ti-modal-warp').html(replaceForm);
+
+                $('.list-row').click(function() {
+
+                    if($(this).hasClass('active')) {
+                        $(this).removeClass('active');
+                    } else {
+                        $(this).addClass('active');
+                    }
+
+                });
 
                 $('#ti-modal').modal();
 
