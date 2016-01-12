@@ -140,6 +140,7 @@ commonUtils.modal.open = function(key) {
                 switch (key) {
                     case 'projects' :
                         replaceForm = replaceForm.replace('{title}', '프로젝트목록');
+                        replaceForm = replaceForm.replace('{key}', 'projects');
                         for (var i in res.data) {
                             var item = res.data[i];
                             content += li.replace('{row}', item.name).replace('{id}', item.id);
@@ -148,6 +149,7 @@ commonUtils.modal.open = function(key) {
                         break;
                     case 'labels' :
                         replaceForm = replaceForm.replace('{title}', '라벨목록');
+                        replaceForm = replaceForm.replace('{key}', 'labels');
                         for (var i in res.data) {
                             var item = res.data[i];
                             content += li.replace('{row}', item.name).replace('{id}', item.id);
@@ -200,6 +202,35 @@ commonUtils.modal.open = function(key) {
 
 };
 
+commonUtils.func.saveItem = function(key) {
+
+    var self = '';
+    switch (key) {
+        case 'projects' :
+            self = 'ti-project-list';
+            break;
+        case 'labels' :
+            self = 'ti-label-list';
+            break;
+        case 'string' :
+            self = 'ti-string-list';
+            break;
+        default :
+            break;
+    }
+
+    $(self).html('');
+    for(var i=0; i<$('.modal-body .list-group').find('li.active').length; i++) {
+        var $item = $('.modal-body .list-group').find('li.active').eq(i);
+
+
+        $(self).html($item);
+
+    }
+
+
+
+};
 
 commonUtils.func.getList = function() {
 
