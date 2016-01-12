@@ -220,8 +220,9 @@ commonUtils.func.saveItem = function(key) {
     }
 
     $(self).html('');
-    for(var i=0; i<$('.modal-body .list-group').find('li.active').length; i++) {
-        var $item = $('.modal-body .list-group').find('li.active').eq(i);
+    var liList = $('.modal-body .list-group').find('li.active');
+    for(var i=0; i<liList.length; i++) {
+        var $item = liList.eq(i);
 
         $(self).append($item);
 
