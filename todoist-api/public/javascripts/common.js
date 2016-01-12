@@ -230,7 +230,7 @@ commonUtils.func.saveItem = function(key) {
 
     $(self).find('li').removeClass('list-row').removeClass('active');
 
-
+    $('#ti-modal').modal('hide');
 
 };
 
