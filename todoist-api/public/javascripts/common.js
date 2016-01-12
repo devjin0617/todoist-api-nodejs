@@ -135,14 +135,14 @@ commonUtils.modal.open = function(key) {
 
                 var replaceForm = commonUtils.templates.modal;
 
-                var li = '<li class="list-group-item list-row">{row}</li>';
+                var li = '<li class="list-group-item list-row" data-id="{id}">{row}</li>';
                 var content = '';
                 switch (key) {
                     case 'projects' :
                         replaceForm = replaceForm.replace('{title}', '프로젝트목록');
                         for (var i in res.data) {
                             var item = res.data[i];
-                            content += li.replace('{row}', item.name);
+                            content += li.replace('{row}', item.name).replace('{id}', item.id);
                         }
 
                         break;
@@ -150,7 +150,7 @@ commonUtils.modal.open = function(key) {
                         replaceForm = replaceForm.replace('{title}', '라벨목록');
                         for (var i in res.data) {
                             var item = res.data[i];
-                            content += li.replace('{row}', item.name);
+                            content += li.replace('{row}', item.name).replace('{id}', item.id);
                         }
 
                         break;
