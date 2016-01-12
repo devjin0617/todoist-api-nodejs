@@ -46,9 +46,14 @@ commonUtils.net.getList = function(data) {
         return;
     }
 
+    if(data.params == undefined) {
+        data.params = {};
+    }
+
     $.ajax({
         type : 'get',
         url : '/api/{token}/{key}'.replace('{token}', apiKey).replace('{key}', data.key),
+        data : data.params,
         dataType : 'json',
         success : function(res) {
 
@@ -240,10 +245,25 @@ commonUtils.func.getList = function() {
         show : true
     });
 
+    var projectList = [];
+    var labelList = [];
+
+    for(var i=0; i<$('#ti-project-list').find('li').length; i++) {
+        projectList.push($('#ti-project-list').find('li').eq(i).data('id'));
+    }
+
+    for(var i=0; i<$('#ti-label-list').find('li').length; i++) {
+        labelList.push($('#ti-label-list').find('li').eq(i).data('id'));
+    }
+
     $.get('/form/form.html', function(form) {
 
         commonUtils.net.getList({
             key : 'result',
+            params : {
+                projects : projectList.join(','),
+                labels : labelList.join(',')
+            },
             success : function(res) {
 
                 commonUtils.util.progress({

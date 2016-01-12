@@ -11,6 +11,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/api/:token/:key', function(req, res, next) {
 
+  console.log(req.query.projects);
+
   if(!req.params.token) {
     return res.send({
       success : false,
@@ -75,8 +77,10 @@ router.get('/api/:token/:key', function(req, res, next) {
       });
     }
 
-    var projectList = ['159854596', '159854554', '159854580'];
-    projectList = projectList.join(',');
+    var projectList = req.query.projects.split(',');
+    var labelList = req.query.labels.split(',');
+
+    console.log(projectList, labelList);
 
     var myList = [];
     for(var i in rootData.Items) {
@@ -84,10 +88,21 @@ router.get('/api/:token/:key', function(req, res, next) {
 
       var isAdd = false;
 
-      var strLabel = item.labels.join(',');
+      var labels = item.labels;
 
-      if(strLabel.indexOf('176470') > -1 && projectList.indexOf(item.project_id.toString()) > -1) {
-        isAdd = true;
+      if(projectList.indexOf(item.project_id.toString()) > -1) {
+
+        if(labels.length == 0) {
+          isAdd = true;
+        } else {
+          for(var j in labels) {
+            var label = labels[j];
+            if(labelList.indexOf(label.toString()) > -1) {
+              isAdd = true;
+            }
+          }
+        }
+
       }
 
       if(item.id == 15970338) {
