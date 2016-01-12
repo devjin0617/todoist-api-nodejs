@@ -207,13 +207,13 @@ commonUtils.func.saveItem = function(key) {
     var self = '';
     switch (key) {
         case 'projects' :
-            self = 'ti-project-list';
+            self = '#ti-project-list';
             break;
         case 'labels' :
-            self = 'ti-label-list';
+            self = '#ti-label-list';
             break;
         case 'string' :
-            self = 'ti-string-list';
+            self = '#ti-string-list';
             break;
         default :
             break;
