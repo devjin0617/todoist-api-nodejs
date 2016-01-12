@@ -135,7 +135,9 @@ router.get('/api/:token/:key', function(req, res, next) {
 
     }
 
-    myList.reverse();
+    myList.sort(function(a, b) {
+        return a.project_id < b.project_id ? -1 : a.project_id > b.project_id ? 1 : 0;
+    });
 
     console.log(myList);
 
