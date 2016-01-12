@@ -223,10 +223,11 @@ commonUtils.func.saveItem = function(key) {
     for(var i=0; i<$('.modal-body .list-group').find('li.active').length; i++) {
         var $item = $('.modal-body .list-group').find('li.active').eq(i);
 
-
-        $(self).html($item);
+        $(self).append($item);
 
     }
+
+    $(self).find('li').removeClass('list-row').removeClass('active');
 
 
 
